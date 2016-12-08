@@ -1,0 +1,10 @@
+#skin-member-basic {}
+#skin-member-basic #login-form { width:90%; max-width:300px; margin:25% auto;position:relative; }
+@media ( max-width:768px) {
+    #skin-member-basic #login-form { margin-top:10%; }
+}
+
+#skin-member-basic #join-form { width:90%; max-width:500px; margin:auto; position:relative; }
+#skin-member-basic #join-form .group-title { font-size:16px; color:#282828;}
+#skin-member-basic #join-form .group-title:before { content:''; display:inline-block; width:12px; height:12px; background:#ddd; margin-right:5px; }
+#skin-member-basic #join-form .agreement { background:#f9f9f9; margin-bottom:15px; border:1px solid #ddd; padding:15px;}

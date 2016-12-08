@@ -39,6 +39,9 @@ class WE_Controller extends CI_Controller
     {
         if( empty($this->view) ) return;
 
+        $this->data['skin_url'] =  ( $this->skin && $this->skin_type ) ? base_url("views/".DIR_SKIN . '/' . $this->skin_type . '/' . $this->skin . '/') : NULL;
+        $this->data['theme_url'] = (isset($this->theme) && $this->theme !== FALSE) ? base_url("views/". DIR_THEME . "/" . $this->theme . "/") : NULL;
+
         $view = ( $this->skin && $this->skin_type ) ? DIR_SKIN . '/' . $this->skin_type . '/' . $this->skin . '/' . $this->view : DIR_THEME . '/' . $this->theme . '/' . $this->view ;
         $data['contents'] = $this->load->view($view, $this->data, TRUE);
         if( $this->skin && $this->skin_type )
@@ -56,6 +59,7 @@ class WE_Controller extends CI_Controller
 
         $data = array_merge($this->data, $data);
         $theme = (isset($this->theme) && $this->theme !== FALSE) ? $this->theme : NULL;
+
 
         $output_data = ($theme == FALSE) ? $data['contents'] : $this->load->view( DIR_THEME . '/' . $theme. '/' . "theme" , $data, TRUE);
         $this->output->set_output($output_data);

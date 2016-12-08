@@ -22,9 +22,9 @@ class HookPostControllerConstructor {
 
         $this->load_config();
         $this->setup_device_view();
-        //$this->autologin_check();
-        //$this->admin_check();
-        //$this->statics();
+        $this->autologin_check();
+        $this->admin_check();
+        $this->statics();
     }
 
     /************************************************
@@ -78,7 +78,7 @@ class HookPostControllerConstructor {
                     ->where('aul_key', $aul_key)
                     ->where('aul_ip', ip2long( $this->CI->input->ip_address() ))
                     ->limit(1)
-                    ->get('tbl_member_autologin');
+                    ->get('member_autologin');
             $autologin = $result->row_array();
 
             if( ! $autologin )
@@ -102,7 +102,7 @@ class HookPostControllerConstructor {
                     $this->CI->member->remove_autologin($autologin['mem_idx']);
                     return FALSE;
                 }
-                else if( $member_info['mem_status'] != Member::MEMBER_STATUS_NORMAL )
+                else if( $member_info['mem_status'] != 'Y' )
                 {
                     // 회원상태가 '정상'이 아닌경우도 자동로그인 삭제
                     $this->CI->member->remove_autologin($autologin['mem_idx']);
@@ -131,13 +131,12 @@ class HookPostControllerConstructor {
         }
         else
         {
-            if( $this->CI->member->info('admin') != Member::MEMBER_SUPER_ADMIN_Y )
+            if(! $this->CI->member->is_admin())
             {
                 alert('해당 페이지에 접근할 권한이 없습니다.');
                 exit;
             }
         }
-        $this->CI->load->helper('admin');
     }
 
     /**************************************************
@@ -187,14 +186,14 @@ class HookPostControllerConstructor {
             $sta_data['sta_keyword'] = trim($keyword);
         }
         // 집계 DB에 저장
-        $this->CI->db->insert("tbl_statics", $sta_data);
+        $this->CI->db->insert("statics", $sta_data);
 
         // 통계 DB에도 저장
-        $query = "	INSERT INTO tbl_statics_date 
-					SET `std_date` = '".date('Y-m-d')."', 
-						`std_count` = 1
-					ON DUPLICATE KEY UPDATE
-						`std_count` = `std_count` + 1";
+        $query = "	INSERT INTO {$this->CI->db->dbprefix}statics_date SET `std_date` = '".date('Y-m-d')."', `std_count` = 1 ";
+        if( $this->CI->agent->is_mobile() ) $query .= ", `std_mobile` = 1 ";
+        $query .= ' ON DUPLICATE KEY UPDATE `std_count` = `std_count` + 1';
+        if( $this->CI->agent->is_mobile() ) $query .= ", `std_mobile` = `std_mobile` + 1";
+
         $this->CI->db->query($query);
     }
 }

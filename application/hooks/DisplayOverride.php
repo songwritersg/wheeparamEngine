@@ -40,6 +40,7 @@ class DisplayOverride {
 
         $foot = "";
         $foot .= '<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';
+        $foot .= '<script type="text/javascript" src="'.base_url("static/js/plugins.min.js").'"></script>';
         $foot .= '<script type="text/javascript" src="'.base_url("static/js/common.min.js").'"></script>';
         $foot .= $this->CI->site->display_js();
         foreach($matches[0] as $match) $foot .= $match;

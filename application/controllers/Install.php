@@ -135,6 +135,8 @@ class Install extends CI_Controller {
         $file_string .= 'define("DEVICE_MOBILE", "mobile");'.PHP_EOL;
         $file_string .= 'define("DEVICE_DESKTOP", "desktop");'.PHP_EOL;
         $file_string .= 'define("COOKIE_VIEWMODE", "viewmode");'.PHP_EOL;
+        $file_string .= 'define("COOKIE_AUTOLOGIN", "autologin");'.PHP_EOL;
+        $file_string .= 'define("COOKIE_STATICS", "visit");'.PHP_EOL;
         $file_string .= 'define("DIR_UPLOAD", "files");'.PHP_EOL;
         $file_string .= 'define("DIR_THEME", "themes");'.PHP_EOL;
         $file_string .= 'define("DIR_SKIN", "skins");'.PHP_EOL;
@@ -156,15 +158,18 @@ class Install extends CI_Controller {
         $data[] = $this->array_config('deny_ip', '');
         $data[] = $this->array_config('deny_nickname', 'admin,administrator,관리자,운영자,어드민,주인장,webmaster,웹마스터,sysop,시삽,시샵,manager,매니저,메니저,root,루트,su,guest,방문객');
         $data[] = $this->array_config('deny_word', '18아,18놈,18새끼,18년,18뇬,18노,18것,18넘,개년,개놈,개뇬,개새,개색끼,개세끼,개세이,개쉐이,개쉑,개쉽,개시키,개자식,개좆,게색기,게색끼,광뇬,뇬,눈깔,뉘미럴,니귀미,니기미,니미,도촬,되질래,뒈져라,뒈진다,디져라,디진다,디질래,병쉰,병신,뻐큐,뻑큐,뽁큐,삐리넷,새꺄,쉬발,쉬밸,쉬팔,쉽알,스패킹,스팽,시벌,시부랄,시부럴,시부리,시불,시브랄,시팍,시팔,시펄,실밸,십8,십쌔,십창,싶알,쌉년,썅놈,쌔끼,쌩쑈,썅,써벌,썩을년,쎄꺄,쎄엑,쓰바,쓰발,쓰벌,쓰팔,씨8,씨댕,씨바,씨발,씨뱅,씨봉알,씨부랄,씨부럴,씨부렁,씨부리,씨불,씨브랄,씨빠,씨빨,씨뽀랄,씨팍,씨팔,씨펄,씹,아가리,아갈이,엄창,접년,잡놈,재랄,저주글,조까,조빠,조쟁이,조지냐,조진다,조질래,존나,존니,좀물,좁년,좃,좆,좇,쥐랄,쥐롤,쥬디,지랄,지럴,지롤,지미랄,쫍빱,凸,퍽큐,뻑큐,빠큐,ㅅㅂㄹㅁ');
+        $data[] = $this->array_config('https_use', 'N');
         $data[] = $this->array_config('icode_userid', '');
         $data[] = $this->array_config('icode_userpw', '');
         $data[] = $this->array_config('theme_desktop', 'basic');
         $data[] = $this->array_config('theme_mobile', 'mobile');
         $data[] = $this->array_config('member_icon_height', '20');
+        $data[] = $this->array_config('member_icon_width', '20');
         $data[] = $this->array_config('member_icon_use', 'Y');
         $data[] = $this->array_config('member_photo_width', '80');
         $data[] = $this->array_config('member_photo_height', '20');
         $data[] = $this->array_config('member_photo_use', 'Y');
+        $data[] = $this->array_config('member_profile_use', 'Y');
         $data[] = $this->array_config('member_extra_fields', '[]');
         $data[] = $this->array_config('message_use', 'Y');
         $data[] = $this->array_config('name_auth_level', '["비회원","일반회원","","","","","","","부관리자","관리자","최고관리자"]');
@@ -254,7 +259,7 @@ class Install extends CI_Controller {
         $field['mem_level'] = array("type"=>"SMALLINT", "constraint"=>5, "default"=>1, "unsigned"=>TRUE);
         $field['mem_point'] = $this->_int_array();
         $field['mem_use_message'] = $this->_enum_array(array('A','F','N'), 'N');
-        $field['mem_use_profile'] = $this->_enum_array(array('Y','N'), 'N');
+        $field['mem_use_profile'] = $this->_enum_array(array('A','F','N'), 'N');
         $field['mem_profile'] = $this->_text_array();
         $field['mem_regtime'] = $this->_datetime_array();
         $field['mem_regip'] = $this->_int_array();
