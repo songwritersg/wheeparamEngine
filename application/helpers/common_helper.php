@@ -23,6 +23,37 @@ function alert($msg = '', $url = '')
     exit;
 }
 
+/*****************************************************************************************
+ * Alert 창을 띄우고 현재 팝업창을 닫습니다.
+ * @param string $msg
+ ****************************************************************************************/
+function alert_close($msg='')
+{
+    if (empty($msg)) {
+        $msg = '잘못된 접근입니다';
+    }
+    echo '<meta http-equiv="content-type" content="text/html; charset=utf-8">';
+    echo '<script type="text/javascript">alert("' . $msg . '");';
+    echo 'window.close();';
+    echo '</script>';
+    exit;
+}
+
+/*****************************************************************************************
+ * 로그인이 필요한 페이지임을 알리고, 로그인 페이지로 이동합니다.
+ * @param string $msg
+ ****************************************************************************************/
+function alert_login()
+{
+    $url = base_url("members/login")."?reurl=".current_full_url(TRUE);
+    echo '<meta http-equiv="content-type" content="text/html; charset=utf-8">';
+    echo '<script type="text/javascript">alert("로그인이 필요한 페이지입니다.");';
+    echo 'document.location.href="' . $url . '"';
+    echo '</script>';
+    exit;
+}
+
+
 /****************************************************************************************
  * 배열의 특정 키값을 가져옵니다.
  * @param $item
@@ -33,6 +64,20 @@ function alert($msg = '', $url = '')
 function element($item, $array, $default = NULL)
 {
     return is_array($array) && array_key_exists($item, $array) &&  $array[$item] ? $array[$item] : $default;
+}
+
+
+/*****************************************************************************************
+ * 현재 주소를 Parameter 포함해서 가져온다.
+ * @return string
+ ****************************************************************************************/
+function current_full_url($urlencode = FALSE)
+{
+    $CI =& get_instance();
+    $url = $CI->config->site_url($CI->uri->uri_string());
+    $return = ($CI->input->server('QUERY_STRING'))
+        ? $url . '?' . $CI->input->server('QUERY_STRING') : $url;
+    return $urlencode ?  urlencode($return) : $return;
 }
 
 /******************************************************************************************
@@ -68,4 +113,20 @@ function is_my_domain($url, $check_file_exist = TRUE) {
         return TRUE;
     }
     return FALSE;
+}
+
+/******************************************************************************************
+ *
+ *****************************************************************************************/
+function get_editor($name, $contents="", $id="", $height="")
+{
+    $param['id'] = empty($id) ? $name : $id;
+    $param['name'] = $name;
+    $param['height'] = empty($height) ? '300px' : $height;
+    $param['contents'] = $contents;
+
+    $CI =& get_instance();
+    $CI->site->add_js("/static/plugins/tinymce/tinymce.min.js");
+
+    return $CI->load->view("tools/tinymce", $param, TRUE);
 }

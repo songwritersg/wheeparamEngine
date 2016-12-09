@@ -1,0 +1,8 @@
+#widget-sidebar_login {}
+#widget-sidebar_login dl.user-info { margin:0; padding:0; list-style:none;}
+#widget-sidebar_login dl.user-info dd { float:left; clear:both; font-size:12px; font-weight:600; margin-bottom:10px;}
+#widget-sidebar_login dl.user-info dt { float:right; font-size:12px; font-weight:normal; margin-bottom:10px;}
+#widget-sidebar_login dl.user-info:after,
+#widget-sidebar_login dl.user-info dt:after { content:''; display:table; clear:both; }
+#widget-sidebar_login .btn:not(.btn-mini) > i.fa { float:left; margin-top:3px}
+#widget-sidebar_login .btn.btn-mini { font-size:12px;padding:1px 5px; }

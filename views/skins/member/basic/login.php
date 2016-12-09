@@ -1,7 +1,7 @@
 <article id="login-form">
     <?=$form_open?>
     <div class="form-group">
-        <input type="text" class="form-control" name="login_id" placeholder="아이디" value="<?=set_value('login_id')?>" maxlength="100">
+        <input type="text" class="form-control" name="login_id" placeholder="아이디" value="<?=set_value('login_id')?>" maxlength="100" autofocus="1">
     </div>
     <div class="form-group">
         <input type="password" class="form-control" name="login_pass" placeholder="비밀번호" value="" maxlength="20">

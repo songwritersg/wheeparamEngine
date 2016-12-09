@@ -73,5 +73,6 @@ fieldset[disabled] .btn-primary.active { background-color: #5bc0de; border-color
 .box { position:relative; background:#fff; border-top:3px solid #5bc0de; width:100%; box-shadow:0 1px 1px rgba(0,0,0,0.1); padding:10px; }
 
 .page-title { font-size:18px; color:#797979; padding-bottom:15px; border-bottom:1px solid #ddd;}
+h4.page-title { font-size:14px;}
 
 label.error { color:#a94442; font-size:12px; }

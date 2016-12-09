@@ -27,7 +27,7 @@ $(function(){
         type : 'POST',
         success:function(res){
             if(res.result == true) {
-                location.href = $(this).find('input[name="reurl"]').val() ? $(this).find('input[name="reurl"]').val() : base_url;
+                location.href = res.reurl ? res.reurl : base_url;
             }
         },
         error:function(e){
@@ -40,12 +40,17 @@ $(function(){
  * 사용자 회원가입
  ***********************************************************************************/
 $(function(){
-    $("form[data-role='form-join']").ajaxForm({
-        url : base_url + '/api/members/info',
-        success:function(res){
-            if(res.result == true) {
-
+    $("form[data-role='form-join']").on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type : 'PUT',
+            data : $(this).serialize(),
+            url : base_url + '/api/members/info',
+            success:function(res){
+                if(res.result == true) {
+                    location.href = base_url + "/members/welcome";
+                }
             }
-        }
+        });
     });
 });

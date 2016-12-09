@@ -60,8 +60,30 @@ class WE_Controller extends CI_Controller
         $data = array_merge($this->data, $data);
         $theme = (isset($this->theme) && $this->theme !== FALSE) ? $this->theme : NULL;
 
-
         $output_data = ($theme == FALSE) ? $data['contents'] : $this->load->view( DIR_THEME . '/' . $theme. '/' . "theme" , $data, TRUE);
+        $output_data = preg_replace_callback('!\[widget([^\]]*)\]!is', array($this, '_widget_replace'), $output_data);
         $this->output->set_output($output_data);
+    }
+
+    protected function _widget_replace( $matches )
+    {
+        $vars = trim($matches[1]);
+        $vars = preg_replace('/\r\n|\r|\n|\t/',' ',$vars);
+        $vars = str_replace( array('"','  '), array('',' '), $vars );
+        $vars = trim(str_replace( " ", '&', $vars ));
+
+        parse_str($vars, $vars_array);
+
+        $vars_array = array_merge( $vars_array, $this->data );
+
+        // Name이 정의되지 않았다면 리턴
+        if( ! isset($vars_array['name']) ) return $this->load->view('tools/widget_error', array("message"=>"위젯 속성중 [name] 값이 정의되지 않았습니다."), TRUE);
+        if( ! file_exists( VIEWPATH . DIR_WIDGET . '/' . $vars_array['name']."/widget.php") ) return $this->load->view('tools/widget_error', array("message"=>"{$vars_array['name']} 위젯파일이 존재하지 않습니다."), TRUE);
+
+        // CSS와 JS파일이 있다면 로드
+        if( file_exists( VIEWPATH . DIR_WIDGET . '/' . $vars_array['name']."/widget.css") ) $this->site->add_css( '/views/' . DIR_WIDGET . '/' . $vars_array['name'] . "/widget.css");
+        if( file_exists( VIEWPATH . DIR_WIDGET . '/' . $vars_array['name']."/widget.js") ) $this->site->add_js( '/views/' . DIR_WIDGET . '/' . $vars_array['name'] . "/widget.js");
+
+        return "<div id=\"widget-{$vars_array['name']}\">". $this->load->view( DIR_WIDGET . '/' . $vars_array['name'] . '/widget', $vars_array, TRUE ) . "</div>";
     }
 }

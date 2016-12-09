@@ -59,6 +59,13 @@ class Member {
         return $this->member_info[$prefix.$column];
     }
 
+    function auth_name()
+    {
+        $auth_level = $this->auth();
+        $auth_name = json_decode($this->CI->site->config('name_auth_level'), TRUE);
+        return $auth_name[$auth_level];
+    }
+
     /***********************************************************
      * 특정 ID의 사용자 정보를 획득한다.
      ***********************************************************/

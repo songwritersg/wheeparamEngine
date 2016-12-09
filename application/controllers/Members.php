@@ -14,6 +14,9 @@ class Members extends WE_Controller {
         exit;
     }
 
+    /**********************************************************
+     * 회원가입
+     **********************************************************/
     public function join()
     {
         if( $this->member->is_login() ) {
@@ -30,6 +33,9 @@ class Members extends WE_Controller {
         $this->data['form_open'] = form_open(NULL, $form_attributes);
         $this->data['form_close'] = form_close();
 
+        $this->data['agreement']['site'] = nl2br($this->site->config('agreement_site'));
+        $this->data['agreement']['privacy'] = nl2br($this->site->config('agreement_privacy'));
+
         $this->data['use_message'] = $this->site->config('message_use') == 'Y';
         $this->data['use_icon'] = $this->site->config('member_icon_use') == 'Y' && $this->site->config('member_icon_width') > 0 &&  $this->site->config('member_icon_height') > 0;
         $this->data['member_icon_width'] = $this->data['use_icon'] ? $this->site->config('member_icon_width') : 0;
@@ -41,14 +47,29 @@ class Members extends WE_Controller {
 
         $this->data['use_profile'] = $this->site->config('member_profile_use') == 'Y';
 
-        //$this->site->add_js("");
-        //$this->site->add_js("/static/js/join.min.js");
-
         $this->site->meta_title = "사용자 회원가입";
         $this->theme = $this->site->get_layout();
         $this->skin_type = SKIN_TYPE_MEMBER;
         $this->skin = $this->site->config( ($this->site->viewmode == DEVICE_MOBILE) ? 'skin_members_mobile' :'skin_members');
         $this->view = "join";
+    }
+
+    /**********************************************************
+     * 회원가입완료 페이지
+     **********************************************************/
+    public function welcome()
+    {
+        if(! $this->member->is_login() )
+        {
+            alert('잘못된 경로로 접근하셧습니다.');
+            exit;
+        }
+
+        $this->site->meta_title = "회원가입 완료";
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = SKIN_TYPE_MEMBER;
+        $this->skin = $this->site->config( ($this->site->viewmode == DEVICE_MOBILE) ? 'skin_members_mobile' :'skin_members');
+        $this->view = "welcome";
     }
 
     /**********************************************************

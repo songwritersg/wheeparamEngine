@@ -55,7 +55,7 @@ class Install extends CI_Controller {
 
             $data['library_check'] = $data['php_version'] && $data['gd_support'] && $data['json_support'] && $data['mbstring_support'] && $data['curl_support'];
 
-            $this->load->view('tools/install/index', $data);
+            $this->load->view('tools/install', $data);
         }
     }
 
@@ -140,6 +140,7 @@ class Install extends CI_Controller {
         $file_string .= 'define("DIR_UPLOAD", "files");'.PHP_EOL;
         $file_string .= 'define("DIR_THEME", "themes");'.PHP_EOL;
         $file_string .= 'define("DIR_SKIN", "skins");'.PHP_EOL;
+        $file_string .= 'define("DIR_WIDGET", "widget");'.PHP_EOL;
         $file_string .= 'define("SKIN_TYPE_BOARD", "board");'.PHP_EOL;
         $file_string .= 'define("SKIN_TYPE_MEMBER", "member");'.PHP_EOL;
 
@@ -172,7 +173,7 @@ class Install extends CI_Controller {
         $data[] = $this->array_config('member_profile_use', 'Y');
         $data[] = $this->array_config('member_extra_fields', '[]');
         $data[] = $this->array_config('message_use', 'Y');
-        $data[] = $this->array_config('name_auth_level', '["비회원","일반회원","","","","","","","부관리자","관리자","최고관리자"]');
+        $data[] = $this->array_config('name_auth_level', '["비회원","일반회원","일반회원","일반회원","일반회원","일반회원","일반회원","일반회원","부관리자","관리자","최고관리자"]');
         $data[] = $this->array_config('point_member_login', '5');
         $data[] = $this->array_config('point_member_register', '20');
         $data[] = $this->array_config('point_name', '포인트');
@@ -239,7 +240,6 @@ class Install extends CI_Controller {
      **********************************************************/
     protected function db_create()
     {
-
         $this->load->dbforge();
 
         /* 환경설정 테이블 */

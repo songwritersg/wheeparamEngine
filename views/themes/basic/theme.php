@@ -56,10 +56,7 @@
             <div class="box"><?=$contents?></div>
         </section>
         <aside id="sidebar" class="col-sm-2 col-sm-pull-10">
-            <div class="panel panel-basic">
-                <div class="panel-heading"></div>
-                <div class="panel-body"></div>
-            </div>
+            [widget name="sidebar_login"]
         </aside>
     </div>
 </div>
