@@ -12,13 +12,13 @@
         <dt><?=$this->member->auth()?> (<?=$this->member->auth_name()?>)</dt>
         <?php if($this->site->config('point_use')) :?>
             <dd><?=$this->site->config('point_name')?></dd>
-            <dt><?=number_format($this->member->info('point'))?>&nbsp;<a href="<?=base_url("members/info/point")?>" class="btn btn-mini btn-default"><i class="fa fa-search"></i></a></dt>
+            <dt><?=number_format($this->member->info('point'))?>&nbsp;<a href="<?=base_url("members/point")?>" class="btn btn-mini btn-default"><i class="fa fa-search"></i></a></dt>
         <?php endif;?>
     </dl>
 
     <a href="<?=base_url("members/info")?>" class="btn btn-default btn-sm btn-block"><i class="fa fa-user"></i>&nbsp;내 정보</a>
     <?php if($this->site->config('message_use') == 'Y') :?>
-    <a href="<?=base_url("members/info/message")?>" class="btn btn-default btn-sm btn-block"><i class="fa fa-envelope-o"></i>&nbsp;쪽지함</a>
+    <a href="<?=base_url("members/message")?>" class="btn btn-default btn-sm btn-block"><i class="fa fa-envelope-o"></i>&nbsp;쪽지함</a>
     <?php endif;?>
     <a href="<?=base_url("members/logout")?>" class="btn btn-default btn-sm btn-block" onclick="return confirm('로그아웃 하시겠습니까?');"><i class="fa fa-sign-out"></i>&nbsp;로그아웃</a>
 

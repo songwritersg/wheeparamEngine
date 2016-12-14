@@ -114,4 +114,22 @@ class Members extends WE_Controller {
         redirect( $reurl );
         exit;
     }
+
+    /**********************************************************
+     * 사용자 정보 페이지
+     **********************************************************/
+    public function info()
+    {
+        if(! $this->member->is_login() )
+        {
+            alert_login();
+            exit;
+        }
+
+        $this->site->meta_title = "사용자 정보";
+        $this->theme = $this->site->get_layout();
+        $this->skin_type = SKIN_TYPE_MEMBER;
+        $this->skin = $this->site->config( ($this->site->viewmode == DEVICE_MOBILE) ? 'skin_members_mobile' :'skin_members');
+        $this->view = "info";
+    }
 }

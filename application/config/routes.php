@@ -52,3 +52,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['board/(:any)'] = "board/lists/$1";
+$route['board/(:any)/(:num)'] = "board/view/$1/$2";
+$route['board/(:any)/(:num)/modify'] = "board/modify/$1/$2";
+$route['board/(:any)/(:num)/delete'] = "board/delete/$1/$2";
+$route['board/(:any)/(:num)/reply'] = "board/reply/$1/$2";
+$route['board/(:any)/write'] = "board/write/$1";
+$route['board/(:any)/password'] = "board/password/$1";
